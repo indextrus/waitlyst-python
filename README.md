@@ -21,7 +21,7 @@ pip install waitlyst-python
 #### Using waitlyst-python:
 
 ```python
-from waitlyst import Waitlyst
+from waitlyst.index import Waitlyst
 
 waitlyst = Waitlyst('YOUR_SECRET_KEY')
 
