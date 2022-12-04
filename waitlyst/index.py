@@ -10,9 +10,9 @@ class Waitlyst(object):
     secret_key: Optional[str] = None
     event_manager: Optional[EventManager] = None
 
-    def __init__(self, secret_key: str):
+    def __init__(self, secret_key: str, base_uri: str = None):
         self.secret_key = secret_key
-        self.event_manager = EventManager(self.secret_key)
+        self.event_manager = EventManager(self.secret_key, base_uri=base_uri)
         self.initialize()
 
     def initialize(self):

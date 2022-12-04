@@ -17,9 +17,9 @@ class HttpClient(object):
     secret_key: str = None
     headers: dict = {}
 
-    def __init__(self, secret_key: str, base_url: str = None):
+    def __init__(self, secret_key: str, base_uri: str = None):
         self.secret_key = secret_key
-        self.base_url = base_url or "https://api.waitlyst.co/v1"
+        self.base_url = base_uri or "https://api.waitlyst.co/v1"
         headers = {
             'Content-Type': 'application/json',
             'Authorization': f"Bearer {self.secret_key}"

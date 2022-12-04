@@ -62,7 +62,7 @@ class EventManager(object):
     def __init__(self, secret_key: str, base_uri: str = None):
         self.secret_key = secret_key
         self.user = User()
-        self.client = HttpClient(secret_key=secret_key, base_url=base_uri)
+        self.client = HttpClient(secret_key=secret_key, base_uri=base_uri)
 
     def set_anonymous_id(self, anonymous_id: str) -> User:
         self.user.anonymous_id = anonymous_id
