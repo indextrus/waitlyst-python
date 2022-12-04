@@ -3,6 +3,6 @@
 
 unittest2==1.1.0
 flake8==3.7.9
-black==22.10.0
+black==22.8.0
 bumpver==2022.1120
 tox==3.27.1
