@@ -111,6 +111,6 @@ stages:
             displayName: 'Upload to pypi.org'
             env:
               TWINE_USERNAME: $(TWINE_USERNAME)
-              TWINE_PASSWORD: $(TWINE_PASSWORD)
+              TWINE_PASSWORD: $(TWINE_PASSWORD_PROD)
             inputs:
               script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD -r dist/*
