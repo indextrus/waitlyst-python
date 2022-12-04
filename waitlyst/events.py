@@ -82,7 +82,7 @@ class EventManager(object):
             raise ErrorEventTypeRequired
         if not name and type != "identify":
             raise ErrorEventNameRequired
-        now = datetime.now().isoformat("#", "milliseconds")
+        now = datetime.now().isoformat("T", "milliseconds")
         payload = EVENT_TEMPLATE.copy()
         payload["anonymousId"] = self.user.anonymous_id
         payload["messageId"] = str(uuid.uuid4())
