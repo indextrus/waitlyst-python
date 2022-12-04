@@ -76,6 +76,11 @@ stages:
                     addToPath: true
 
                 - task: CmdLine@2
+                  displayName: 'Install dependencies'
+                  inputs:
+                    script: pip install -r requirements/local.txt
+
+                - task: CmdLine@2
                   displayName: 'Install build & twine'
                   inputs:
                     script: python -m pip install build twine
@@ -120,6 +125,12 @@ stages:
                   displayName: 'Install build & twine'
                   inputs:
                     script: python -m pip install build twine
+
+
+                - task: CmdLine@2
+                  displayName: 'Install dependencies'
+                  inputs:
+                    script: pip install -r requirements/local.txt
 
                 - task: CmdLine@2
                   displayName: 'Build package'
