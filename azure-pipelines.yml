@@ -50,9 +50,14 @@ stages:
               script: pip install -r requirements/local.txt
 
           - task: CmdLine@2
+            displayName: 'Run flake8'
+            inputs:
+              script: flake8
+
+          - task: CmdLine@2
             displayName: 'Run tests'
             inputs:
-              script: tox
+              script: unit2 discover -s tests -p "test_*.py"
 
   - stage: QA1
     displayName: Run tests
