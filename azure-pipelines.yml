@@ -59,76 +59,82 @@ stages:
 
   - stage: QA1
     displayName: Run tests
-    environment: qa1
     jobs:
-      - job: BuildAndTest
-        displayName: Build & Test
+      - deployment: DeployQa1
+        environment: qa1
+        displayName: Deploy to test environment
         pool:
           vmImage: 'ubuntu-18.04'
-        steps:
-          - task: UsePythonVersion@0
-            displayName: 'Install python'
-            inputs:
-              versionSpec: '3.8'
-              addToPath: true
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: UsePythonVersion@0
+                  displayName: 'Install python'
+                  inputs:
+                    versionSpec: '3.8'
+                    addToPath: true
 
-          - task: CmdLine@2
-            displayName: 'Install build & twine'
-            inputs:
-              script: python -m pip install build twine
+                - task: CmdLine@2
+                  displayName: 'Install build & twine'
+                  inputs:
+                    script: python -m pip install build twine
 
-          - task: CmdLine@2
-            displayName: 'Build package'
-            inputs:
-              script: python -m build
+                - task: CmdLine@2
+                  displayName: 'Build package'
+                  inputs:
+                    script: python -m build
 
-          - task: CmdLine@2
-            displayName: 'Confirm package build'
-            inputs:
-              script: twine check dist/*
+                - task: CmdLine@2
+                  displayName: 'Confirm package build'
+                  inputs:
+                    script: twine check dist/*
 
-          - task: CmdLine@2
-            displayName: 'Upload to test.pypi.org'
-            env:
-              TWINE_USERNAME: $(TWINE_USERNAME)
-              TWINE_PASSWORD: $(TWINE_PASSWORD)
-            inputs:
-              script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD -r testpypi dist/*
+                - task: CmdLine@2
+                  displayName: 'Upload to test.pypi.org'
+                  env:
+                    TWINE_USERNAME: $(TWINE_USERNAME)
+                    TWINE_PASSWORD: $(TWINE_PASSWORD)
+                  inputs:
+                    script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD -r testpypi dist/*
 
   - stage: Production
-    environment: prod
     displayName: Run tests
     jobs:
-      - job: BuildAndTest
-        displayName: Build & Test
+      - deployment: DeployProduction
+        environment: prod
+        displayName: deploy Web App
         pool:
           vmImage: 'ubuntu-18.04'
-        steps:
-          - task: UsePythonVersion@0
-            displayName: 'Install python'
-            inputs:
-              versionSpec: '3.8'
-              addToPath: true
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: UsePythonVersion@0
+                  displayName: 'Install python'
+                  inputs:
+                    versionSpec: '3.8'
+                    addToPath: true
 
-          - task: CmdLine@2
-            displayName: 'Install build & twine'
-            inputs:
-              script: python -m pip install build twine
+                - task: CmdLine@2
+                  displayName: 'Install build & twine'
+                  inputs:
+                    script: python -m pip install build twine
 
-          - task: CmdLine@2
-            displayName: 'Build package'
-            inputs:
-              script: python -m build
+                - task: CmdLine@2
+                  displayName: 'Build package'
+                  inputs:
+                    script: python -m build
 
-          - task: CmdLine@2
-            displayName: 'Confirm package build'
-            inputs:
-              script: twine check dist/*
+                - task: CmdLine@2
+                  displayName: 'Confirm package build'
+                  inputs:
+                    script: twine check dist/*
 
-          - task: CmdLine@2
-            displayName: 'Upload to pypi.org'
-            env:
-              TWINE_USERNAME: $(TWINE_USERNAME)
-              TWINE_PASSWORD_PROD: $(TWINE_PASSWORD_PROD)
-            inputs:
-              script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD_PROD -r dist/*
+                - task: CmdLine@2
+                  displayName: 'Upload to pypi.org'
+                  env:
+                    TWINE_USERNAME: $(TWINE_USERNAME)
+                    TWINE_PASSWORD_PROD: $(TWINE_PASSWORD_PROD)
+                  inputs:
+                    script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD_PROD -r dist/*
