@@ -69,16 +69,12 @@ stages:
           runOnce:
             deploy:
               steps:
+                - checkout: self
                 - task: UsePythonVersion@0
                   displayName: 'Install python'
                   inputs:
                     versionSpec: '3.8'
                     addToPath: true
-
-                - task: CmdLine@2
-                  displayName: 'Install dependencies'
-                  inputs:
-                    script: pip install -r requirements/local.txt
 
                 - task: CmdLine@2
                   displayName: 'Install build & twine'
@@ -115,6 +111,8 @@ stages:
           runOnce:
             deploy:
               steps:
+                - checkout: self
+
                 - task: UsePythonVersion@0
                   displayName: 'Install python'
                   inputs:
