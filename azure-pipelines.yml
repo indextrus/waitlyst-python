@@ -59,6 +59,7 @@ stages:
 
   - stage: QA1
     displayName: Run tests
+    environment: qa1
     jobs:
       - job: BuildAndTest
         displayName: Build & Test
@@ -95,6 +96,7 @@ stages:
               script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD -r testpypi dist/*
 
   - stage: Production
+    environment: prod
     displayName: Run tests
     jobs:
       - job: BuildAndTest
@@ -127,6 +129,6 @@ stages:
             displayName: 'Upload to pypi.org'
             env:
               TWINE_USERNAME: $(TWINE_USERNAME)
-              TWINE_PASSWORD: $(TWINE_PASSWORD_PROD)
+              TWINE_PASSWORD_PROD: $(TWINE_PASSWORD_PROD)
             inputs:
-              script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD -r dist/*
+              script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD_PROD -r dist/*
