@@ -14,10 +14,17 @@ class HttpResponse(object):
 
 class HttpClient(object):
     base_url: str = None
+    secret_key: str = None
     headers: dict = {}
 
-    def __init__(self, base_url: str = None):
-        self.base_url = base_url or "https://api.waitlyst.com/v1"
+    def __init__(self, secret_key: str, base_url: str = None):
+        self.secret_key = secret_key
+        self.base_url = base_url or "https://api.waitlyst.co/v1"
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f"Bearer {self.secret_key}"
+        }
+        self.set_headers(headers)
 
     def set_headers(self, headers: dict):
         """Set the headers for the HTTP client."""
