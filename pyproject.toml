@@ -16,7 +16,7 @@ classifiers = [
 ]
 keywords = ["analytics", "tracking"]
 dependencies = [
-    "requests>=2.28.1",
+    "requests>=2.27.1",
 ]
 requires-python = ">=2.7"
 
