@@ -58,7 +58,7 @@ stages:
               script: unit2 discover
 
   - stage: QA1
-    displayName: Run tests
+    displayName: Deploy to staging
     jobs:
       - deployment: DeployQa1
         environment: qa1
@@ -100,7 +100,7 @@ stages:
                     script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD -r testpypi dist/*
 
   - stage: Production
-    displayName: Run tests
+    displayName: Deploy to production
     jobs:
       - deployment: DeployProduction
         environment: prod
@@ -146,4 +146,4 @@ stages:
                     TWINE_USERNAME: $(TWINE_USERNAME)
                     TWINE_PASSWORD_PROD: $(TWINE_PASSWORD_PROD)
                   inputs:
-                    script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD_PROD -r dist/*
+                    script: twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD_PROD dist/*
