@@ -24,11 +24,24 @@ stages:
         displayName: Build & Test
         pool:
           vmImage: 'ubuntu-18.04'
+        strategy:
+          matrix:
+            Python36:
+              python.version: '3.6'
+            Python37:
+              python.version: '3.7'
+            Python38:
+              python.version: '3.8'
+            Python39:
+              python.version: '3.9'
+            Python310:
+              python.version: '3.10'
+          maxParallel: 2
         steps:
           - task: UsePythonVersion@0
             displayName: 'Install python'
             inputs:
-              versionSpec: '3.x'
+              versionSpec: '$(python.version)'
               addToPath: true
 
           - task: CmdLine@2
