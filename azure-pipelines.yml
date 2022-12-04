@@ -28,7 +28,7 @@ stages:
           - task: UsePythonVersion@0
             displayName: 'Install python'
             inputs:
-              versionSpec: '3.8'
+              versionSpec: '3.x'
               addToPath: true
 
           - task: CmdLine@2
