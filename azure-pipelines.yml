@@ -103,7 +103,7 @@ stages:
     jobs:
       - deployment: DeployProduction
         environment: prod
-        displayName: deploy Web App
+        displayName: Deploy to pypi
         pool:
           vmImage: 'ubuntu-18.04'
         strategy:
