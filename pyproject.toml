@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "waitlyst-python"
+version = "1.0.1"
+description = "The easiest way to track product analytics with python."
+readme = "README.md"
+authors = [{ name = "Waitlyst", email = "support@waitlyst.co" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["analytics", "tracking"]
+dependencies = [
+    "requests>=2.28.1",
+]
+requires-python = ">=2.7"
+
+[project.optional-dependencies]
+dev = ["black", "flake8", "isort", "pip-tools", "unittest2", "bumpver"]
+
+[project.urls]
+Homepage = "https://github.com/indextrus/waitlyst-python"
+
+
+[tool.bumpver]
+current_version = "1.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message  = "Bump version {old_version} -> {new_version}"
+commit          = true
+tag             = true
+push            = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
