@@ -9,7 +9,8 @@
 Please visit https://waitlyst.co/docs to view the complete documentation.
 
 ## Getting Started
-This module is distributed via npm, which is bundled with node and should be installed as one of your project's dependencies.
+This module is distributed via pypi. You can install it using pip:
+
 
 ```sh
 pip install waitlyst-python
