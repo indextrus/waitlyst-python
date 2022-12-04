@@ -57,7 +57,7 @@ stages:
           - task: CmdLine@2
             displayName: 'Run tests'
             inputs:
-              script: unit2 discover -s tests -p "test_*.py"
+              script: unit2 discover
 
   - stage: QA1
     displayName: Run tests
