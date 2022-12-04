@@ -9,7 +9,6 @@ EVENT_TEMPLATE = {
     "version": 1,
 }
 
-
 API_PATHS = {
     "process_event": "/events/process/",
 }
