@@ -2,6 +2,7 @@ import json
 
 from waitlyst.constants import API_PATHS
 
+
 class MockResponse:
     def __init__(self, text_data=None, json_data=None, status_code=None):
         self.json_data = json_data
