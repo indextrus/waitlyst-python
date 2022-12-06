@@ -6,10 +6,16 @@ from requests import Response
 
 class HttpResponse(object):
     response: Response = None
+    data: dict = None
+    status_code: int = None
+    status: str = None
     event: Any = None
 
     def __init__(self, response: Response):
         self.response = response
+        self.data = response.json()
+        self.status_code = response.status_code
+        self.status = "success" if response.status_code == 200 else "failed"
 
 
 class HttpClient(object):
