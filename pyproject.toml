@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "waitlyst-python"
-version = "1.4.4"
+version = "1.4.5"
 description = "The easiest way to track product analytics with python."
 readme = "README.md"
 authors = [{ name = "Waitlyst", email = "support@waitlyst.co" }]
@@ -28,7 +28,7 @@ Homepage = "https://github.com/indextrus/waitlyst-python"
 
 
 [tool.bumpver]
-current_version = "1.4.4"
+current_version = "1.4.5"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message  = "Bump version {old_version} -> {new_version}"
 commit          = true
