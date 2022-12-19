@@ -27,8 +27,8 @@ class HttpClient(object):
         self.secret_key = secret_key
         self.base_url = base_uri or "https://api.waitlyst.co/v1"
         headers = {
-            'Content-Type': 'application/json',
-            'Authorization': f"Bearer {self.secret_key}"
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.secret_key}",
         }
         self.set_headers(headers)
 

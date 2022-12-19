@@ -48,8 +48,24 @@ class PageEvent(Event):
     properties: Optional[dict] = None
 
 
+class ScreenEvent(Event):
+    type = "screen"
+    name: str = None
+    properties: Optional[dict] = None
+
+
+class AliasEvent(Event):
+    type = "alias"
+    previous_id: str = None
+
+
 class IdentifyEvent(Event):
     type = "identify"
+    traits: Optional[dict] = None
+
+
+class GroupEvent(Event):
+    type = "group"
     traits: Optional[dict] = None
 
 
@@ -101,7 +117,15 @@ class EventManager(object):
         elif type == "identify":
             payload["traits"] = props
             payload["userId"] = name
-
+        elif type == "group":
+            payload["groupId"] = name
+            payload["traits"] = props
+        elif type == "alias":
+            payload["previousId"] = self.user.id
+            payload["userId"] = name
+        elif type == "screen":
+            payload["name"] = name
+            payload["properties"] = props
         return payload
 
     def create_event(self, payload):
@@ -112,6 +136,12 @@ class EventManager(object):
             return PageEvent(**payload)
         elif payload["type"] == "identify":
             return IdentifyEvent(**payload)
+        elif payload["type"] == "group":
+            return GroupEvent(**payload)
+        elif payload["type"] == "alias":
+            return AliasEvent(**payload)
+        elif payload["type"] == "screen":
+            return ScreenEvent(**payload)
         else:
             raise ErrorInvalidPayload
 
@@ -125,9 +155,11 @@ class EventManager(object):
         # Push to queue
         self.queue.append(event)
 
-        if response.status_code == 200 and payload["type"] == "identify":
-            self.user.id = payload["userId"]
-
+        if response.status_code == 200:
+            if payload["type"] == "identify":
+                self.user.id = payload["userId"]
+            if payload["type"] == "alias":
+                self.user.id = payload["userId"]
         return http_response
 
     def identify(self, id: str = None, traits: Optional[dict] = None) -> HttpResponse:
@@ -142,5 +174,20 @@ class EventManager(object):
 
     def page(self, name: str, properties: Optional[dict] = None) -> HttpResponse:
         payload = self.construct("page", name, properties)
+        response = self.client.post(path=API_PATHS["process_event"], data=payload)
+        return self.handle(response, payload)
+
+    def group(self, id: str, traits: Optional[dict] = None) -> HttpResponse:
+        payload = self.construct("group", id, traits)
+        response = self.client.post(path=API_PATHS["process_event"], data=payload)
+        return self.handle(response, payload)
+
+    def alias(self, id: str) -> HttpResponse:
+        payload = self.construct("alias", id)
+        response = self.client.post(path=API_PATHS["process_event"], data=payload)
+        return self.handle(response, payload)
+
+    def screen(self, name: str, properties: Optional[dict] = None) -> HttpResponse:
+        payload = self.construct("screen", name, properties)
         response = self.client.post(path=API_PATHS["process_event"], data=payload)
         return self.handle(response, payload)

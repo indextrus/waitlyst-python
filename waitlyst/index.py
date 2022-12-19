@@ -40,6 +40,18 @@ class Waitlyst(object):
         """Get the current user."""
         return self.event_manager.identity()
 
+    def group(self, id: str, traits: Optional[dict] = None) -> HttpResponse:
+        """Track a group."""
+        return self.event_manager.group(id, traits)
+
+    def alias(self, new_id: str) -> HttpResponse:
+        """Alias a user."""
+        return self.event_manager.alias(new_id)
+
+    def screen(self, name: str, properties: Optional[dict] = None) -> HttpResponse:
+        """Track a screen view."""
+        return self.event_manager.screen(name, properties)
+
     @property
     def queue(self) -> List[Event]:
         """Get the current queue."""
